@@ -16,6 +16,8 @@ spl_autoload_register(function ($className) {
 	include 'src/' .$className . '.php';
 });
 
+
+
 $mosaicElement1 = new MosaicElement();
 $mosaicElement1->setType(new MosaicTypeFullHorizontalFullVertical());
 
@@ -43,20 +45,65 @@ $mosaicElement8->setType(new MosaicTypeHalfHorizontalFullVertical());
 //$mosaicElement9 = new MosaicElement();
 //$mosaicElement10 = new MosaicElement();
 
-$mosaicElements = [];
-for($i = 1; $i <= 7; $i++)
-	$mosaicElements[] = ${"mosaicElement{$i}"};
 
 //echo '<pre>';
 //print_r($mosaicElements);
 //echo '</pre>';
 //dump($mosaicElements);
-$mosaic = new Mosaic($mosaicElements);
-$resultMosaic = $mosaic->create();
-dump($resultMosaic, 'resultMosaic!!!');
+$mosaic = new Mosaic([
+	$mosaicElement7,
+	$mosaicElement1,
+	$mosaicElement2,
+	$mosaicElement8,
+	$mosaicElement5,
+	$mosaicElement3,
+	$mosaicElement4,
+	$mosaicElement6,
+]);
+//dump($mosaic->getResultMosaic(), 'resultMosaic!!!');
+//die();
+?>
+<div style="width: 600px; margin: 0 auto;">
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	<?php
+	foreach($mosaic->getResultMosaic() as $k => $mosaicRow)
+	{
+	?>
+		<tr>
+			<?php
+				foreach($mosaicRow->getMosaicElements() as $mosaicElement)
+				{
 
-//$row = new \mosaic\MosaicRow([$mosaicElement3, $mosaicElement2, $mosaicElement8]);
-//dump($row->isRowCompleted());
+					switch($mosaicElement->getType()->getShortName())
+					{
+						case '<1h|1v>':
+							$el = "<td colspan='4' style=' width: 600px; height: 200px; background: tomato'></td>";
+						break;
+						case '<1/2h|1v>':
+							$el = "<td style='width: 300px; height: 200px; background: limegreen'></td>";
+						break;
+						case '<1/2h|1/2v>':
+							$el = "<td style='width: 300px; height: 100px; background: steelblue'></td>";
+						break;
+						case '<1/4h|1v>':
+							$el = "<td style='width: 150px; height: 200px; background: teal'></td>";
+						break;
+					}
+					echo $el;
+				}
+			?>
+		</tr>
+	<?php
+	}
+	?>
+	</table>
+</div>
 
 
 
@@ -67,9 +114,7 @@ dump($resultMosaic, 'resultMosaic!!!');
 
 
 
-
-
-
+<?php
 function dump($ar, $title = '')
 {
 

@@ -12,8 +12,9 @@ use Mosaic\MosaicElement;
 interface MosaicStrategyInterface
 {
 	/**
+	 *
 	 * @param MosaicElement[] $mosaicElements
 	 * @return mixed
 	 */
-	public function findElement($mosaicElements);
+	public function findElement(&$mosaicElements);
 }

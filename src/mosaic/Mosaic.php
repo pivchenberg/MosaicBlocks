@@ -35,17 +35,18 @@ class Mosaic
 	 */
 	public function __construct(array $mosaicElements)
 	{
+		if(empty($mosaicElements))
+			throw new \InvalidArgumentException('Mosaic elements list can not be empty');
+
 		$this->mosaicElements = $mosaicElements;
+		$this->create();
 	}
 
-	/**
-	 * @return MosaicRow[]
-	 */
-	public function create()
+	protected function create()
 	{
 		if(empty($this->currentRow))
 		{
-			//grab the first element
+			//cut the first element
 			$firstMosaicElement = array_shift($this->mosaicElements);
 			$this->currentRow = new MosaicRow([$firstMosaicElement]);
 		}
@@ -54,24 +55,40 @@ class Mosaic
 		{
 			//Поиск стратегии
 			$strategyContext = new MosaicStrategyContext($this->currentRow);
-
-			$detectedElement = $strategyContext->findElement($this->mosaicElements);
+			$detectedElement = $strategyContext->findMosaicElement($this->mosaicElements);
+			if(!empty($detectedElement))
+			{
+				$this->currentRow->addMosaicElement($detectedElement);
+			}
+			else //Не получилось ничего найти, оставляем строку как есть
+			{
+				$this->currentRow->setRowFilledCorrectly(false);
+				//Пишем в результат
+				$this->resultMosaic[] = $this->currentRow;
+				//Обнуляем текущую строчку
+				$this->currentRow = null;
+			}
 		}
 		else //Строчка заполнена
 		{
+			$this->currentRow->setRowFilledCorrectly(true);
 			//Пишем в результат
 			$this->resultMosaic[] = $this->currentRow;
 			//Обнуляем текущую строчку
 			$this->currentRow = null;
 		}
 
-
-
 		//recursive call
 		if(!empty($this->mosaicElements))
 			$this->create();
-
-		return $this->resultMosaic;
+		else //final row
+		{
+			$this->currentRow->setRowFilledCorrectly($this->currentRow->isRowCompleted());
+			//Пишем в результат
+			$this->resultMosaic[] = $this->currentRow;
+			//Обнуляем текущую строчку
+			$this->currentRow = null;
+		}
 	}
 
 	/**

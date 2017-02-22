@@ -28,6 +28,8 @@ class MosaicRow
 	 */
 	private $rowCompletedCriteria;
 
+	private $rowFilledCorrectly = false;
+
 	/**
 	 * Mosaic constructor.
 	 * @param MosaicElement[] $mosaicElements
@@ -57,6 +59,16 @@ class MosaicRow
 				new MosaicTypeQuarterHorizontalFullVertical(),
 				//половинка по горизонтали, целый по вертикали
 				new MosaicTypeHalfHorizontalFullVertical(),
+			],
+			[
+				//четверть по вертикали, целый по горизонтали
+				new MosaicTypeQuarterHorizontalFullVertical(),
+				//четверть по вертикали, целый по горизонтали
+				new MosaicTypeQuarterHorizontalFullVertical(),
+				//половинка по горизонтали, половинка по вертикали
+				new MosaicTypeHalfHorizontalHalfVertical(),
+				//половинка по горизонтали, половинка по вертикали
+				new MosaicTypeHalfHorizontalHalfVertical()
 			]
 		];
 	}
@@ -122,5 +134,21 @@ class MosaicRow
 		}
 
 		return implode(' ', $arId);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isRowFilledCorrectly(): bool
+	{
+		return $this->rowFilledCorrectly;
+	}
+
+	/**
+	 * @param boolean $rowFilledCorrectly
+	 */
+	public function setRowFilledCorrectly(bool $rowFilledCorrectly)
+	{
+		$this->rowFilledCorrectly = $rowFilledCorrectly;
 	}
 }
