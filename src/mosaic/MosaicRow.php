@@ -12,6 +12,7 @@ use Mosaic\MosaicType\MosaicTypeFullHorizontalFullVertical;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalFullVertical;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalHalfVertical;
 use Mosaic\MosaicType\MosaicTypeQuarterHorizontalFullVertical;
+use Mosaic\MosaicType\MosaicTypeThreeQuarterHorizontalFullVertical;
 
 class MosaicRow
 {
@@ -42,33 +43,39 @@ class MosaicRow
 		$this->rowCompletedCriteria = [
 			[
 				//целый по горизонтали, целый по вертикали
-				new MosaicTypeFullHorizontalFullVertical()
+				MosaicTypeFullHorizontalFullVertical::class
 			],
 			[
 				//половинка по горизонтали, целый по вертикали
-				new MosaicTypeHalfHorizontalFullVertical(),
+				MosaicTypeHalfHorizontalFullVertical::class,
 				//половинка по горизонтали, половинка по вертикали
-				new MosaicTypeHalfHorizontalHalfVertical(),
+				MosaicTypeHalfHorizontalHalfVertical::class,
 				//половинка по горизонтали, половинка по вертикали
-				new MosaicTypeHalfHorizontalHalfVertical()
+				MosaicTypeHalfHorizontalHalfVertical::class
 			],
 			[
-				//четверть по вертикали, целый по горизонтали
-				new MosaicTypeQuarterHorizontalFullVertical(),
-				//четверть по вертикали, целый по горизонтали
-				new MosaicTypeQuarterHorizontalFullVertical(),
+				//четверть по горизонтили, целый по вертикали
+				MosaicTypeQuarterHorizontalFullVertical::class,
+				//четверть по горизонтили, целый по вертикали
+				MosaicTypeQuarterHorizontalFullVertical::class,
 				//половинка по горизонтали, целый по вертикали
-				new MosaicTypeHalfHorizontalFullVertical(),
+				MosaicTypeHalfHorizontalFullVertical::class,
 			],
 			[
-				//четверть по вертикали, целый по горизонтали
-				new MosaicTypeQuarterHorizontalFullVertical(),
-				//четверть по вертикали, целый по горизонтали
-				new MosaicTypeQuarterHorizontalFullVertical(),
+				//четверть по горизонтили, целый по вертикали
+				MosaicTypeQuarterHorizontalFullVertical::class,
+				//четверть по горизонтили, целый по вертикали
+				MosaicTypeQuarterHorizontalFullVertical::class,
 				//половинка по горизонтали, половинка по вертикали
-				new MosaicTypeHalfHorizontalHalfVertical(),
+				MosaicTypeHalfHorizontalHalfVertical::class,
 				//половинка по горизонтали, половинка по вертикали
-				new MosaicTypeHalfHorizontalHalfVertical()
+				MosaicTypeHalfHorizontalHalfVertical::class
+			],
+			[
+				//Три четверти по горизонтали, целый по вертикали
+				MosaicTypeThreeQuarterHorizontalFullVertical::class,
+				//четверть по горизонтили, целый по вертикали
+				MosaicTypeQuarterHorizontalFullVertical::class,
 			]
 		];
 	}

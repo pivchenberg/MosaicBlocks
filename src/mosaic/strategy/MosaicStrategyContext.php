@@ -11,6 +11,7 @@ use Mosaic\MosaicRow;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalFullVertical;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalHalfVertical;
 use Mosaic\MosaicType\MosaicTypeQuarterHorizontalFullVertical;
+use Mosaic\MosaicType\MosaicTypeThreeQuarterHorizontalFullVertical;
 
 class MosaicStrategyContext
 {
@@ -43,6 +44,11 @@ class MosaicStrategyContext
 			 0000------------
 			 */
 			case '<1/4h|1v>':
+				$this->strategy = new MosaicSearchByTypeStrategy([
+					MosaicTypeThreeQuarterHorizontalFullVertical::class,
+					MosaicTypeQuarterHorizontalFullVertical::class
+				]);
+			break;
 			/*
 			 000000000000----
 			 000000000000----
@@ -165,6 +171,21 @@ class MosaicStrategyContext
 			 000000000000----
 			 */
 			case '<1/2h|1v> <1/4h|1v>':
+				$this->strategy = new MosaicSearchByTypeStrategy([
+					MosaicTypeQuarterHorizontalFullVertical::class
+				]);
+			break;
+
+			/*==============
+			3/4h|1v
+			================*/
+			/*
+			 000000000000----
+			 000000000000----
+			 000000000000----
+			 000000000000----
+			 */
+			case '<3/4h|1v>':
 				$this->strategy = new MosaicSearchByTypeStrategy([
 					MosaicTypeQuarterHorizontalFullVertical::class
 				]);

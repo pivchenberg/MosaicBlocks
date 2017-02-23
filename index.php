@@ -10,6 +10,7 @@ use Mosaic\MosaicType\MosaicTypeFullHorizontalFullVertical;
 use Mosaic\MosaicType\MosaicTypeQuarterHorizontalFullVertical;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalHalfVertical;
 use Mosaic\MosaicType\MosaicTypeHalfHorizontalFullVertical;
+use Mosaic\MosaicType\MosaicTypeThreeQuarterHorizontalFullVertical;
 use Mosaic\Mosaic;
 
 spl_autoload_register(function ($className) {
@@ -60,7 +61,8 @@ $arMosaicTypes = [
 	MosaicTypeFullHorizontalFullVertical::class,
 	MosaicTypeHalfHorizontalFullVertical::class,
 	MosaicTypeHalfHorizontalHalfVertical::class,
-	MosaicTypeQuarterHorizontalFullVertical::class
+	MosaicTypeQuarterHorizontalFullVertical::class,
+    MosaicTypeThreeQuarterHorizontalFullVertical::class
 ];
 for($i =0; $i < $randomElements; $i++){
     $typeClassIndex = array_rand($arMosaicTypes);
@@ -139,6 +141,9 @@ function drawElement($mosaicElement)
 			break;
 		case '<1/4h|1v>':
 			$el = "<div style='border:1px dashed black; display: inline-block; width: 148px; height: 198px; background: teal'>{$mosaicElement->getType()->getShortName()}</div>";
+			break;
+		case '<3/4h|1v>':
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 448px; height: 198px; background: violet;'>{$mosaicElement->getType()->getShortName()}</div>";
 			break;
 	}
 	echo $el;
