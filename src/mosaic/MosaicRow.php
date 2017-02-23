@@ -48,6 +48,12 @@ class MosaicRow
 			[
 				//половинка по горизонтали, целый по вертикали
 				MosaicTypeHalfHorizontalFullVertical::class,
+				//половинка по горизонтали, целый по вертикали
+				MosaicTypeHalfHorizontalFullVertical::class
+			],
+			[
+				//половинка по горизонтали, целый по вертикали
+				MosaicTypeHalfHorizontalFullVertical::class,
 				//половинка по горизонтали, половинка по вертикали
 				MosaicTypeHalfHorizontalHalfVertical::class,
 				//половинка по горизонтали, половинка по вертикали

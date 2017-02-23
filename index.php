@@ -82,7 +82,7 @@ $mosaic->prepareOutput();
 	foreach($mosaic->getResultMosaic() as $k => $mosaicRow)
 	{
 	?>
-		<div style="vertical-align: top">
+		<div style="vertical-align: top; <?php echo $mosaicRow->isRowFilledCorrectly() ? 'outline: 2px solid green;' : 'outline: 2px solid red;';?>">
 			<?php
 				foreach($mosaicRow->getMosaicElements() as $mosaicElement)
 				{

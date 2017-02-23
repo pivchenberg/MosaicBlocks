@@ -33,10 +33,9 @@ class MosaicStrategyContext
 		//Поиск стратегии
 		switch($rowType)
 		{
-			/*==============
+			/**==============
 			1/4h|1v
-			================*/
-
+			================**/
 			/*
 			 0000------------
 			 0000------------
@@ -50,18 +49,6 @@ class MosaicStrategyContext
 				]);
 			break;
 			/*
-			 000000000000----
-			 000000000000----
-			 000000000000----
-			 000000000000----
-			 */
-			case '<1/4h|1v> <1/4h|1v> <1/4h|1v>':
-				$this->strategy = new MosaicSearchByTypeStrategy([
-					MosaicTypeQuarterHorizontalFullVertical::class
-				]);
-			break;
-
-			/*
 			 00000000--------
 			 00000000--------
 			 00000000--------
@@ -71,6 +58,17 @@ class MosaicStrategyContext
 				$this->strategy = new MosaicSearchByTypeStrategy([
 					MosaicTypeHalfHorizontalFullVertical::class,
 					MosaicTypeHalfHorizontalHalfVertical::class,
+					MosaicTypeQuarterHorizontalFullVertical::class
+				]);
+			break;
+			/*
+			 000000000000----
+			 000000000000----
+			 000000000000----
+			 000000000000----
+			 */
+			case '<1/4h|1v> <1/4h|1v> <1/4h|1v>':
+				$this->strategy = new MosaicSearchByTypeStrategy([
 					MosaicTypeQuarterHorizontalFullVertical::class
 				]);
 			break;
@@ -86,9 +84,9 @@ class MosaicStrategyContext
 				]);
 			break;
 
-			/*==============
+			/**==============
 			1/2h|1/2v
-			================*/
+			================**/
 			/*
 			 00000000--------
 			 00000000--------
@@ -100,7 +98,6 @@ class MosaicStrategyContext
 					MosaicTypeHalfHorizontalHalfVertical::class
 				]);
 			break;
-
 			/*
 			 00000000--------
 			 00000000--------
@@ -137,9 +134,9 @@ class MosaicStrategyContext
 				]);
 			break;
 
-			/*==============
+			/**==============
 			1/2h|1v
-			================*/
+			================**/
 			/*
 			 00000000--------
 			 00000000--------
@@ -176,9 +173,9 @@ class MosaicStrategyContext
 				]);
 			break;
 
-			/*==============
+			/**==============
 			3/4h|1v
-			================*/
+			================**/
 			/*
 			 000000000000----
 			 000000000000----
