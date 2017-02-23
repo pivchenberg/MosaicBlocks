@@ -81,7 +81,7 @@ class Mosaic
 		//recursive call
 		if(!empty($this->mosaicElements))
 			$this->create();
-		else //final row
+		elseif(!empty($this->currentRow)) //final row
 		{
 			$this->currentRow->setRowFilledCorrectly($this->currentRow->isRowCompleted());
 			//Пишем в результат
@@ -97,5 +97,25 @@ class Mosaic
 	public function getResultMosaic(): array
 	{
 		return $this->resultMosaic;
+	}
+
+	public function prepareOutput()
+	{
+		$cutOutRows = [];
+		foreach($this->resultMosaic as $rowIndex => $mosaicRow)
+		{
+			$mosaicRow->prepareOutput();
+			//Перемещаем вниз незаполненные строки
+			if(!$mosaicRow->isRowFilledCorrectly())
+			{
+				$cutOutRows[] = $mosaicRow;
+				unset($this->resultMosaic[$rowIndex]);
+			}
+		}
+
+		foreach($cutOutRows as $cutOutRow)
+		{
+			$this->resultMosaic[] = $cutOutRow;
+		}
 	}
 }

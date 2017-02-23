@@ -18,91 +18,90 @@ spl_autoload_register(function ($className) {
 
 
 
-$mosaicElement1 = new MosaicElement();
-$mosaicElement1->setType(new MosaicTypeFullHorizontalFullVertical());
+//$mosaicElement1 = new MosaicElement();
+//$mosaicElement1->setType(new MosaicTypeFullHorizontalFullVertical());
+//
+//$mosaicElement2 = new MosaicElement();
+//$mosaicElement2->setType(new MosaicTypeQuarterHorizontalFullVertical());
+//
+//$mosaicElement3 = new MosaicElement();
+//$mosaicElement3->setType(new MosaicTypeQuarterHorizontalFullVertical());
+//
+//$mosaicElement4 = new MosaicElement();
+//$mosaicElement4->setType(new MosaicTypeHalfHorizontalHalfVertical());
+//
+//$mosaicElement5 = new MosaicElement();
+//$mosaicElement5->setType(new MosaicTypeHalfHorizontalHalfVertical());
+//
+//$mosaicElement6 = new MosaicElement();
+//$mosaicElement6->setType(new MosaicTypeHalfHorizontalHalfVertical());
+//
+//$mosaicElement7 = new MosaicElement();
+//$mosaicElement7->setType(new MosaicTypeHalfHorizontalHalfVertical());
+//
+//$mosaicElement8 = new MosaicElement();
+//$mosaicElement8->setType(new MosaicTypeHalfHorizontalFullVertical());
+
+//$mosaicElements = [
+//	$mosaicElement7,
+//	$mosaicElement1,
+//	$mosaicElement2,
+//	$mosaicElement8,
+//	$mosaicElement5,
+//	$mosaicElement3,
+//	$mosaicElement4,
+//	$mosaicElement6,
+//];
 
 
-$mosaicElement2 = new MosaicElement();
-$mosaicElement2->setType(new MosaicTypeQuarterHorizontalFullVertical());
+$randomElements = 30;
+$mosaicElements = [];
+$arMosaicTypes = [
+	MosaicTypeFullHorizontalFullVertical::class,
+	MosaicTypeHalfHorizontalFullVertical::class,
+	MosaicTypeHalfHorizontalHalfVertical::class,
+	MosaicTypeQuarterHorizontalFullVertical::class
+];
+for($i =0; $i < $randomElements; $i++){
+    $typeClassIndex = array_rand($arMosaicTypes);
+    $typeClass = $arMosaicTypes[$typeClassIndex];
+    $me = new MosaicElement();
+    $me->setType(new $typeClass());
+	$mosaicElements[] = $me;
+}
 
-$mosaicElement3 = new MosaicElement();
-$mosaicElement3->setType(new MosaicTypeQuarterHorizontalFullVertical());
+$mosaic = new Mosaic($mosaicElements);
+$mosaic->prepareOutput();
 
-$mosaicElement4 = new MosaicElement();
-$mosaicElement4->setType(new MosaicTypeHalfHorizontalHalfVertical());
-
-$mosaicElement5 = new MosaicElement();
-$mosaicElement5->setType(new MosaicTypeHalfHorizontalHalfVertical());
-
-$mosaicElement6 = new MosaicElement();
-$mosaicElement6->setType(new MosaicTypeHalfHorizontalHalfVertical());
-
-$mosaicElement7 = new MosaicElement();
-$mosaicElement7->setType(new MosaicTypeHalfHorizontalHalfVertical());
-
-$mosaicElement8 = new MosaicElement();
-$mosaicElement8->setType(new MosaicTypeHalfHorizontalFullVertical());
-//$mosaicElement9 = new MosaicElement();
-//$mosaicElement10 = new MosaicElement();
-
-
-//echo '<pre>';
-//print_r($mosaicElements);
-//echo '</pre>';
-//dump($mosaicElements);
-$mosaic = new Mosaic([
-	$mosaicElement7,
-	$mosaicElement1,
-	$mosaicElement2,
-	$mosaicElement8,
-	$mosaicElement5,
-	$mosaicElement3,
-	$mosaicElement4,
-	$mosaicElement6,
-]);
-//dump($mosaic->getResultMosaic(), 'resultMosaic!!!');
-//die();
 ?>
 <div style="width: 600px; margin: 0 auto;">
-	<table>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
+	<div>
 	<?php
 	foreach($mosaic->getResultMosaic() as $k => $mosaicRow)
 	{
 	?>
-		<tr>
+		<div style="vertical-align: top">
 			<?php
 				foreach($mosaicRow->getMosaicElements() as $mosaicElement)
 				{
-
-					switch($mosaicElement->getType()->getShortName())
-					{
-						case '<1h|1v>':
-							$el = "<td colspan='4' style=' width: 600px; height: 200px; background: tomato'></td>";
-						break;
-						case '<1/2h|1v>':
-							$el = "<td style='width: 300px; height: 200px; background: limegreen'></td>";
-						break;
-						case '<1/2h|1/2v>':
-							$el = "<td style='width: 300px; height: 100px; background: steelblue'></td>";
-						break;
-						case '<1/4h|1v>':
-							$el = "<td style='width: 150px; height: 200px; background: teal'></td>";
-						break;
-					}
-					echo $el;
+                    if(is_array($mosaicElement))
+                    {
+                        echo '<div style="vertical-align: top; width: 300px; display: inline-block">';
+                        foreach($mosaicElement as $me)
+	                        drawElement($me);
+                        echo '</div>';
+                    }
+                    else
+                    {
+					    drawElement($mosaicElement);
+                    }
 				}
 			?>
-		</tr>
+		</div>
 	<?php
 	}
 	?>
-	</table>
+	</div>
 </div>
 
 
@@ -123,4 +122,24 @@ function dump($ar, $title = '')
 		echo '<h4 style=" color: #fff">' . $title .'</h4>';
 	print_r($ar);
 	echo '</pre>';
+}
+
+function drawElement($mosaicElement)
+{
+	switch($mosaicElement->getType()->getShortName())
+	{
+		case '<1h|1v>':
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 598px; height: 198px; background: tomato'>{$mosaicElement->getType()->getShortName()}</div>";
+			break;
+		case '<1/2h|1v>':
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 198px; background: limegreen'>{$mosaicElement->getType()->getShortName()}</div>";
+			break;
+		case '<1/2h|1/2v>':
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 98px; background: steelblue'>{$mosaicElement->getType()->getShortName()}</div>";
+			break;
+		case '<1/4h|1v>':
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 148px; height: 198px; background: teal'>{$mosaicElement->getType()->getShortName()}</div>";
+			break;
+	}
+	echo $el;
 }

@@ -151,4 +151,30 @@ class MosaicRow
 	{
 		$this->rowFilledCorrectly = $rowFilledCorrectly;
 	}
+
+	public function prepareOutput()
+	{
+		$cutOutMosaicElements = [];
+		foreach($this->mosaicElements as $meIndex => $mosaicElement)
+		{
+			if($mosaicElement->getType() instanceof MosaicTypeHalfHorizontalHalfVertical)
+			{
+				$cutOutMosaicElements[$meIndex] = $mosaicElement;
+				unset($this->mosaicElements[$meIndex]);
+			}
+		}
+
+		$writeIndex = null;
+		foreach($cutOutMosaicElements as $cutOutIndex => $cutOutMosaicElement)
+		{
+			if($writeIndex === null)
+				$writeIndex = $cutOutIndex;
+
+			if(isset($this->mosaicElements[$writeIndex]) && count($this->mosaicElements[$writeIndex]) === 2)
+				$writeIndex = $cutOutIndex;
+
+			$this->mosaicElements[$writeIndex][] = $cutOutMosaicElement;
+		}
+		ksort($this->mosaicElements);
+	}
 }
