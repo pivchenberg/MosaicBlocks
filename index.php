@@ -55,7 +55,7 @@ spl_autoload_register(function ($className) {
 //];
 
 
-$randomElements = 30;
+$randomElements = mt_rand(20, 30);
 $mosaicElements = [];
 $arMosaicTypes = [
 	MosaicTypeFullHorizontalFullVertical::class,
@@ -64,11 +64,12 @@ $arMosaicTypes = [
 	MosaicTypeQuarterHorizontalFullVertical::class,
     MosaicTypeThreeQuarterHorizontalFullVertical::class
 ];
-for($i =0; $i < $randomElements; $i++){
+for($i = 0; $i < $randomElements; $i++){
     $typeClassIndex = array_rand($arMosaicTypes);
     $typeClass = $arMosaicTypes[$typeClassIndex];
     $me = new MosaicElement();
     $me->setType(new $typeClass());
+    $me->setId($i);
 	$mosaicElements[] = $me;
 }
 
@@ -76,6 +77,16 @@ $mosaic = new Mosaic($mosaicElements);
 $mosaic->prepareOutput();
 
 ?>
+<div style="position: absolute; top: 10px; left: 10px;">
+    <ul style="list-style-type: none;">
+        <?php
+        /** @var MosaicElement $rme */
+        foreach($mosaicElements as $rme):?>
+            <li><?php echo $rme->getId()?>. <?php echo $rme->getType()->getShortName()?></li>
+        <?php endforeach;?>
+    </ul>
+</div>
+
 <div style="width: 600px; margin: 0 auto;">
 	<div>
 	<?php
@@ -128,22 +139,23 @@ function dump($ar, $title = '')
 
 function drawElement($mosaicElement)
 {
+    $content = "Идентификатор: {$mosaicElement->getId()}<br>Тип: {$mosaicElement->getType()->getShortName()}";
 	switch($mosaicElement->getType()->getShortName())
 	{
 		case '<1h|1v>':
-			$el = "<div style='border:1px dashed black; display: inline-block; width: 598px; height: 198px; background: tomato'>{$mosaicElement->getType()->getShortName()}</div>";
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 598px; height: 198px; background: tomato'>{$content}</div>";
 			break;
 		case '<1/2h|1v>':
-			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 198px; background: limegreen'>{$mosaicElement->getType()->getShortName()}</div>";
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 198px; background: limegreen'>{$content}</div>";
 			break;
 		case '<1/2h|1/2v>':
-			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 98px; background: steelblue'>{$mosaicElement->getType()->getShortName()}</div>";
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 298px; height: 98px; background: steelblue'>{$content}</div>";
 			break;
 		case '<1/4h|1v>':
-			$el = "<div style='border:1px dashed black; display: inline-block; width: 148px; height: 198px; background: teal'>{$mosaicElement->getType()->getShortName()}</div>";
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 148px; height: 198px; background: teal'>{$content}</div>";
 			break;
 		case '<3/4h|1v>':
-			$el = "<div style='border:1px dashed black; display: inline-block; width: 448px; height: 198px; background: violet;'>{$mosaicElement->getType()->getShortName()}</div>";
+			$el = "<div style='border:1px dashed black; display: inline-block; width: 448px; height: 198px; background: violet;'>{$content}</div>";
 			break;
 	}
 	echo $el;

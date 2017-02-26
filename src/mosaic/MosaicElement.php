@@ -12,6 +12,11 @@ use Mosaic\MosaicType\MosaicTypeInterface;
 class MosaicElement
 {
 	/**
+	 * @var integer
+	 */
+	private $id;
+
+	/**
 	 * @var MosaicTypeInterface
 	 */
 	private $type;
@@ -30,5 +35,21 @@ class MosaicElement
 	public function setType(MosaicTypeInterface $type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getId(): int
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId(int $id)
+	{
+		$this->id = $id;
 	}
 }

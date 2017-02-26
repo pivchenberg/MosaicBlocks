@@ -31,6 +31,15 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
 	 */
 	public function findElement(&$mosaicElements)
 	{
+		return $this->findElementLoopingTypes($mosaicElements);
+	}
+
+	/**
+	 * @param MosaicElement[] $mosaicElements
+	 * @return MosaicElement|null
+	 */
+	public function findElementLoopingElements(&$mosaicElements)
+	{
 		if(empty($this->mosaicElementTypes))
 			return null;
 
@@ -48,6 +57,32 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
 		}
 
 		//Если ничего не найдено, пробуем искать с другим типом
-		return $this->findElement($mosaicElements);
+		return $this->findElementLoopingElements($mosaicElements);
+	}
+
+	/**
+	 * @param MosaicElement[] $mosaicElements
+	 * @return MosaicElement|null
+	 */
+	public function findElementLoopingTypes(&$mosaicElements)
+	{
+		if(empty($this->mosaicElementTypes))
+			return null;
+
+		foreach($mosaicElements as $k => $mosaicElement)
+		{
+			foreach($this->mosaicElementTypes as $mosaicElementType)
+			{
+				if($mosaicElement->getType() instanceof $mosaicElementType)
+				{
+					//Удаляем найденный элемент из списка
+					unset($mosaicElements[$k]);
+					//Возвращаем найденный элемент
+					return $mosaicElement;
+				}
+			}
+		}
+
+		return null;
 	}
 }
