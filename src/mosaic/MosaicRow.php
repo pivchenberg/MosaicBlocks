@@ -82,6 +82,16 @@ class MosaicRow
 				MosaicTypeThreeQuarterHorizontalFullVertical::class,
 				//четверть по горизонтили, целый по вертикали
 				MosaicTypeQuarterHorizontalFullVertical::class,
+			],
+			[
+				//половинка по горизонтали, половинка по вертикали
+				MosaicTypeHalfHorizontalHalfVertical::class,
+				//половинка по горизонтали, половинка по вертикали
+				MosaicTypeHalfHorizontalHalfVertical::class,
+				//половинка по горизонтали, половинка по вертикали
+				MosaicTypeHalfHorizontalHalfVertical::class,
+				//половинка по горизонтали, половинка по вертикали
+				MosaicTypeHalfHorizontalHalfVertical::class,
 			]
 		];
 	}
