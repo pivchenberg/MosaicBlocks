@@ -1,0 +1,27 @@
+{
+    "name": "pivchenberg/mosaic-blocks",
+    "description": "Php algorithm for creating the mosaic of blocks.",
+    "keywords": [
+        "mosaic blocks",
+        "grouping elements",
+        "create html mosaic"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/pivchenberg/MosaicBlocks",
+    "authors": [
+        {
+            "name": "Nikita Pivchenkov",
+            "email": "pivchenberg@gmail.com",
+            "role": "Backend developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pivchenberg\\MosaicBlocks\\": ""
+        }
+    }
+}
