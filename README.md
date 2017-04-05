@@ -47,14 +47,16 @@ MosaicElement only contains type of mosaic, so you can easy create your own mosa
 use Pivchenberg\MosaicBlocks\Mosaic\MosaicElementInterface;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeInterface;
 
-class MyClass implements MosaicElementInterface {
+class MyClass implements MosaicElementInterface 
+{
     protected $mosaicType;
     
     /**
      * @return MosaicTypeInterface
      */
-    public function getMosaicType() {
+    public function getMosaicType() 
+    {
         return $this->mosaicType;
-	}
+    }
 }
 ```
