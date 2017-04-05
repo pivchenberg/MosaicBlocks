@@ -51,7 +51,7 @@ class MyClass implements MosaicElementInterface {
     protected $mosaicType;
     
     /**
-	 * @return MosaicTypeInterface
+     * @return MosaicTypeInterface
      */
     public function getMosaicType() {
         return $this->mosaicType;
