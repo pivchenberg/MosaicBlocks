@@ -4,7 +4,7 @@ Php algorithm for creating the mosaic of blocks.
 
 ## Installation
 ```bash
-$ composer require pichenberg/mosaic-blocks
+$ composer require pivchenberg/mosaic-blocks
 ```
 
 ## Simple Example
