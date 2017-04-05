@@ -2,40 +2,59 @@ Mosaic blocks
 =============
 Php algorithm for creating the mosaic of blocks.
 
-Simple Example
---------------
+## Installation
+```bash
+$ composer require pichenberg/mosaic-blocks
+```
+
+## Simple Example
 ```php
-// create from 20 to 30 random elements
-$randomElements = mt_rand(20, 30);
-$mosaicElements = [];
-$arMosaicTypes = [
-    MosaicTypeFullHorizontalFullVertical::class,
-    MosaicTypeHalfHorizontalFullVertical::class,
-    MosaicTypeHalfHorizontalHalfVertical::class,
-    MosaicTypeQuarterHorizontalFullVertical::class,
-    MosaicTypeThreeQuarterHorizontalFullVertical::class
+<?php 
+
+// Get list of mosaic elements
+$mosaicElements = [
+    new MosaicElement(new MosaicTypeFullHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeHalfHorizontalHalfVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeHalfHorizontalHalfVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeHalfHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeThreeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeQuarterHorizontalFullVertical()),
+    new MosaicElement(new MosaicTypeThreeQuarterHorizontalFullVertical()),
 ];
 
-for ($i = 0; $i < $randomElements; $i++) {
-    //get random type
-    $typeClassIndex = array_rand($arMosaicTypes);
-    $typeClass = $arMosaicTypes[$typeClassIndex];
-    $me = new MosaicElement();
-    //and set to new MosaicElement
-    $me->setType(new $typeClass());
-    $me->setId($i);
-    $mosaicElements[] = $me;
-}
-
-// or get elements from database
-// now we have random list of mosaic elements
+// Pass it to Mosaic construct
 $mosaic = new Mosaic($mosaicElements);
 $mosaic->prepareOutput();
 
-//loop througn mosaic rows
+// Loop througn mosaic rows
 foreach ($mosaic->getResultMosaic() as $k => $mosaicRow) {
 	foreach ($mosaicRow->getMosaicElements() as $mosaicElement) {
-	    // and output your html
+	    // And output your html
+	}
+}
+```
+
+## MosaicElement
+MosaicElement only contains type of mosaic, so you can easy create your own mosaic element class
+```php
+<?php
+
+use Pivchenberg\MosaicBlocks\Mosaic\MosaicElementInterface;
+use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeInterface;
+
+class MyClass implements MosaicElementInterface {
+    protected $mosaicType;
+    
+    /**
+	 * @return MosaicTypeInterface
+     */
+    public function getMosaicType() {
+        return $this->mosaicType;
 	}
 }
 ```

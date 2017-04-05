@@ -2,7 +2,7 @@
 
 namespace Pivchenberg\MosaicBlocks\Strategy;
 
-use Pivchenberg\MosaicBlocks\Mosaic\MosaicElement;
+use Pivchenberg\MosaicBlocks\Mosaic\MosaicElementInterface;
 
 /**
  * Class MosaicSearchByTypeStrategy
@@ -25,8 +25,8 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
     }
 
     /**
-     * @param MosaicElement[] $mosaicElements
-     * @return MosaicElement|null
+     * @param MosaicElementInterface[] $mosaicElements
+     * @return MosaicElementInterface|null
      */
     public function findElement(&$mosaicElements)
     {
@@ -37,8 +37,8 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
      * Take first element and looping through the all types.
      * If nothing found, take the second element
      *
-     * @param MosaicElement[] $mosaicElements
-     * @return MosaicElement|null
+     * @param MosaicElementInterface[] $mosaicElements
+     * @return MosaicElementInterface|null
      */
     public function findElementLoopingTypes(&$mosaicElements)
     {
@@ -48,7 +48,7 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
 
         foreach ($mosaicElements as $k => $mosaicElement) {
             foreach ($this->mosaicElementTypes as $mosaicElementType) {
-                if ($mosaicElement->getType() instanceof $mosaicElementType) {
+                if ($mosaicElement->getMosaicType() instanceof $mosaicElementType) {
                     // Delete the found element from the list
                     unset($mosaicElements[$k]);
                     // Return the found element
@@ -64,8 +64,8 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
      * Take the first type and loop through the all mosaic elements.
      * If nothing found, take the second type etc.
      *
-     * @param MosaicElement[] $mosaicElements
-     * @return MosaicElement|null
+     * @param MosaicElementInterface[] $mosaicElements
+     * @return MosaicElementInterface|null
      */
     public function findElementLoopingElements(&$mosaicElements)
     {
@@ -76,7 +76,7 @@ class MosaicSearchByTypeStrategy implements MosaicStrategyInterface
         // Take the first type
         $curMosaicTypeToSearch = array_shift($this->mosaicElementTypes);
         foreach ($mosaicElements as $k => $mosaicElement) {
-            if ($mosaicElement->getType() instanceof $curMosaicTypeToSearch) {
+            if ($mosaicElement->getMosaicType() instanceof $curMosaicTypeToSearch) {
                 // Delete the found element from the list
                 unset($mosaicElements[$k]);
                 // Return the found element

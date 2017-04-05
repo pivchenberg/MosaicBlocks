@@ -11,13 +11,14 @@ namespace Pivchenberg\MosaicBlocks\Mosaic;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeFullHorizontalFullVertical;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeHalfHorizontalFullVertical;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeHalfHorizontalHalfVertical;
+use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeInterface;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeQuarterHorizontalFullVertical;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeThreeQuarterHorizontalFullVertical;
 
 class MosaicRow
 {
     /**
-     * @var array|MosaicElement[]
+     * @var array|MosaicElementInterface[]
      */
     private $mosaicElements;
 
@@ -25,7 +26,7 @@ class MosaicRow
      * Row completeness criteria
      * The order of the elements does not matter
      *
-     * @var MosaicElement[]
+     * @var MosaicTypeInterface[]
      */
     private $rowCompletedCriteria;
 
@@ -33,7 +34,7 @@ class MosaicRow
 
     /**
      * Mosaic constructor.
-     * @param MosaicElement[] $mosaicElements
+     * @param MosaicElementInterface[] $mosaicElements
      */
     public function __construct(array $mosaicElements)
     {
@@ -73,6 +74,12 @@ class MosaicRow
                 MosaicTypeHalfHorizontalHalfVertical::class,
                 MosaicTypeHalfHorizontalHalfVertical::class,
                 MosaicTypeHalfHorizontalHalfVertical::class,
+            ],
+            [
+                MosaicTypeQuarterHorizontalFullVertical::class,
+                MosaicTypeQuarterHorizontalFullVertical::class,
+                MosaicTypeQuarterHorizontalFullVertical::class,
+                MosaicTypeQuarterHorizontalFullVertical::class,
             ]
         ];
     }
@@ -93,7 +100,7 @@ class MosaicRow
                 $mosaicElementFoundInCriteria = false;
 
                 foreach ($rowCompletedCriteria as $k => $mosaicTypeCriteria) {
-                    if ($mosaicElement->getType() instanceof $mosaicTypeCriteria) {
+                    if ($mosaicElement->getMosaicType() instanceof $mosaicTypeCriteria) {
                         $mosaicElementFoundInCriteria = true;
                         unset($rowCompletedCriteria[$k]);
                         break;
@@ -111,7 +118,7 @@ class MosaicRow
         return $mosaicElementFoundInCriteria;
     }
 
-    public function addMosaicElement(MosaicElement $mosaicElement)
+    public function addMosaicElement(MosaicElementInterface $mosaicElement)
     {
         $this->mosaicElements[] = $mosaicElement;
     }
@@ -130,7 +137,7 @@ class MosaicRow
     {
         $arId = [];
         foreach ($this->mosaicElements as $mosaicElement) {
-            $arId[] = $mosaicElement->getType()->getShortName();
+            $arId[] = $mosaicElement->getMosaicType()->getShortName();
         }
 
         return implode(' ', $arId);
@@ -156,7 +163,7 @@ class MosaicRow
     {
         $cutOutMosaicElements = [];
         foreach ($this->mosaicElements as $meIndex => $mosaicElement) {
-            if ($mosaicElement->getType() instanceof MosaicTypeHalfHorizontalHalfVertical) {
+            if ($mosaicElement->getMosaicType() instanceof MosaicTypeHalfHorizontalHalfVertical) {
                 $cutOutMosaicElements[$meIndex] = $mosaicElement;
                 unset($this->mosaicElements[$meIndex]);
             }

@@ -8,7 +8,7 @@ class Mosaic
 {
     /**
      * Input array of mosaic elements
-     * @var array|MosaicElement[]
+     * @var array|MosaicElementInterface[]
      */
     private $mosaicElements;
 
@@ -24,7 +24,7 @@ class Mosaic
 
     /**
      * Mosaic constructor.
-     * @param MosaicElement[] $mosaicElements
+     * @param MosaicElementInterface[] $mosaicElements
      */
     public function __construct(array $mosaicElements)
     {

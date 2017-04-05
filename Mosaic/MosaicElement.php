@@ -8,7 +8,7 @@ use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeInterface;
  * Class MosaicElement
  * @package Pivchenberg\MosaicBlocks\Mosaic
  */
-class MosaicElement
+class MosaicElement implements MosaicElementInterface
 {
 	/**
 	 * @var integer
@@ -18,22 +18,27 @@ class MosaicElement
 	/**
 	 * @var MosaicTypeInterface
 	 */
-	private $type;
+	private $mosaicType;
 
-	/**
+    public function __construct(MosaicTypeInterface $mosaicType)
+    {
+        $this->mosaicType = $mosaicType;
+    }
+
+    /**
 	 * @return MosaicTypeInterface
 	 */
-	public function getType()
+	public function getMosaicType()
 	{
-		return $this->type;
+		return $this->mosaicType;
 	}
 
 	/**
-	 * @param MosaicTypeInterface $type
+	 * @param MosaicTypeInterface $mosaicType
 	 */
-	public function setType(MosaicTypeInterface $type)
+	public function setMosaicType(MosaicTypeInterface $mosaicType)
 	{
-		$this->type = $type;
+		$this->mosaicType = $mosaicType;
 	}
 
 	/**

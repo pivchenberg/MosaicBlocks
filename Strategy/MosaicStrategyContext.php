@@ -2,7 +2,7 @@
 
 namespace Pivchenberg\MosaicBlocks\Strategy;
 
-use Pivchenberg\MosaicBlocks\Mosaic\MosaicElement;
+use Pivchenberg\MosaicBlocks\Mosaic\MosaicElementInterface;
 use Pivchenberg\MosaicBlocks\Mosaic\MosaicRow;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeHalfHorizontalFullVertical;
 use Pivchenberg\MosaicBlocks\MosaicType\MosaicTypeHalfHorizontalHalfVertical;
@@ -191,8 +191,8 @@ class MosaicStrategyContext
 	}
 
 	/**
-	 * @param MosaicElement[]|array $mosaicElements
-	 * @return MosaicElement|null
+	 * @param MosaicElementInterface[]|array $mosaicElements
+	 * @return MosaicElementInterface|null
 	 */
 	public function findMosaicElement(&$mosaicElements)
 	{
