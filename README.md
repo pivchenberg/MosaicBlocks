@@ -60,3 +60,4 @@ class MyClass implements MosaicElementInterface
     }
 }
 ```
+> [Example code](https://github.com/pivchenberg/mosaicExample)
